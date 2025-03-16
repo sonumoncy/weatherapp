@@ -34,6 +34,7 @@ Emulator or physical device for testing
 1️⃣ Clone the Repository
 
 git clone https://github.com/sonumoncy/weatherapp.git
+
 cd weather_app
 
 2️⃣ Install Dependencies
