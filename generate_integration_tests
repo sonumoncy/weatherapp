@@ -1,0 +1,40 @@
+import 'dart:io';
+
+void main() {
+  // Define the directory where your screen files are located (update this as per your project structure)
+  final dir = Directory('lib'); // or wherever your screen Dart files are located
+  final files = dir.listSync().where((f) => f.path.endsWith('.dart'));
+
+  // Loop through each Dart file (screen) in the folder
+  for (var file in files) {
+    final fileName = file.uri.pathSegments.last.replaceAll('.dart', '');
+    final testFilePath = 'integration_test/${fileName}_test.dart';
+
+    // Generate the test content for the file
+    final testContent = '''
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
+import 'package:weatherapp/main.dart' as app;
+
+void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  testWidgets('$fileName Integration Test', (tester) async {
+    // Launch the app
+    app.main();
+    await tester.pumpAndSettle();
+
+    // Expect the screen widget to be found
+    expect(find.byType($fileName), findsOneWidget);
+
+    // Add more test steps like interaction, navigation, etc.
+  });
+}
+''';
+
+    // Create the integration test file
+    Directory('integration_test').createSync(recursive: true);
+    File(testFilePath).writeAsStringSync(testContent);
+    print('✅ Generated integration test: $testFilePath');
+  }
+}
