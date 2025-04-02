@@ -1,10 +1,6 @@
 workflows:
   default:
     name: Default Workflow
-    trigger:
-      branches:
-        only:
-          - master  # Change 'main' to the branch you are using, like 'master'
     environment:
       flutter: stable  # Use the stable version of Flutter
     scripts:
