@@ -5,5 +5,5 @@ workflows:
       flutter: stable  # Use the stable version of Flutter
     scripts:
       - flutter pub get  # Install dependencies
-      - flutter test #  integration test
+      - flutter test integration_test/ #  integration test
       - flutter build apk  # Build the APK for Android
